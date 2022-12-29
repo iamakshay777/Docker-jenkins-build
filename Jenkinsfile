@@ -43,7 +43,7 @@ MAINTAINER akshaysaini193@gmail.com
 RUN mkdir -p /home/akshay
 WORKDIR /home/akshay
 COPY . .
-CMD ["java", "-Dserver.port=8888","-jar","spring-boot-hello-1.0.jar"]
+CMD ["echo", "Hello world"]
 EXPOSE 8888
 EOT
 sudo docker build -t webimage:$BUILD_NUMBER .
