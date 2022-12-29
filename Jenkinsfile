@@ -48,7 +48,7 @@ EXPOSE 8888
 EOT
 sudo docker build -t webimage:$BUILD_NUMBER .
 sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8888 webimage:$BUILD_NUMBER
-sudo docker ps >> /home/akshay.txt '''
+sudo docker ps'''
       }
     }
   }
