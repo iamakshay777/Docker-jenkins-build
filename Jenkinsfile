@@ -27,7 +27,6 @@ pipeline{
         sh 'mvn clean package'
       }
     }
-    stage(Ready to deploy on prod)
     stage('Upload War File To Artifactory'){
       steps{
         sh 'echo Uploaded War file to Artifactory'
