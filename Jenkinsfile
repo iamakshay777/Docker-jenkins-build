@@ -36,7 +36,7 @@ pipeline{
         sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
 cd dockerimg
-cp /home/akshay/Downloads/mvn-testing-spring-boot-project/spring-boot-hello-world/target/ .
+cp . .
 touch dockerfile
 cat <<EOT>>dockerfile
 FROM tomcat
