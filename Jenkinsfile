@@ -21,8 +21,6 @@ pipeline{
     	  message "are you sure you want to deploy on prod"
     	  ok "yes,go ahead"
     	}
-    	
-    	
       steps{
         sh 'mvn clean package'
       }
@@ -38,10 +36,14 @@ pipeline{
         sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
 cd dockerimg
-cp /home/akshay/Downloads/mvn-testing-spring-boot-project/spring-boot-hello-world/target/spring-boot-hello-1.0.jar .
+cp /home/akshay/Downloads/mvn-testing-spring-boot-project/spring-boot-hello-world/target/ .
 touch dockerfile
 cat <<EOT>>dockerfile
 FROM tomcat
+MAINTAINER akshaysaini193@gmail.com
+RUN mkdir -p /home/akshay
+WORKDIR /home/akshay
+COPY . .
 ADD spring-boot-hello-1.0.jar /usr/local/tomcat/webapps/
 CMD ["java", "-Dserver.port=8888","-jar","spring-boot-hello-1.0.jar"]
 EXPOSE 8888
