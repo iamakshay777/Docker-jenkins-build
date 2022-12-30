@@ -33,14 +33,16 @@ pipeline{
         sh 'echo Uploaded War file to Artifactory'
       }
     }
-    stage('Deploy on container')
-      steps{
-          script {
-              sh ''' 
-sudo docker build -t webimage:$BUILD_NUMBER .
-sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8888 webimage:$BUILD_NUMBER
-sudo docker ps'''
+    stage('Deploy on container') {
+        steps{
+         script {
+             sh '''
+             sudo docker build -t webimage:$BUILD_NUMBER .
+             sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8888 webimage:$BUILD_NUMBER
+             sudo docker ps '''
+         }
       }
     }
+     
   }
 }
