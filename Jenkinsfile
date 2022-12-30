@@ -35,6 +35,7 @@ pipeline{
          script {
              sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
+cp /home/akshay/Downloads/mvn-testing-spring-boot-project/spring-boot-hello-world .
 cd dockerimg
 touch dockerfile
 cat <<EOT>>dockerfile
