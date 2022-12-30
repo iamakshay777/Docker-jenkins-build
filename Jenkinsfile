@@ -33,22 +33,10 @@ pipeline{
         sh 'echo Uploaded War file to Artifactory'
       }
     }
-    stage('Deploy on container'){
-      agent any
+    stage('Deploy on container')
       steps{
-        sh label: '', script: '''rm -rf dockerimg
-mkdir dockerimg
-cd dockerimg
-touch dockerfile
-cat <<EOT>>dockerfile
-FROM tomcat
-MAINTAINER akshaysaini193@gmail.com
-RUN mkdir -p /home/akshay
-WORKDIR /home/akshay
-COPY . .
-CMD ["echo", "Hello world"]
-EXPOSE 8888
-EOT
+          script {
+              sh ''' 
 sudo docker build -t webimage:$BUILD_NUMBER .
 sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8888 webimage:$BUILD_NUMBER
 sudo docker ps'''
