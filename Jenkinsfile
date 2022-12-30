@@ -33,10 +33,21 @@ pipeline{
     stage('Deploy on container') {
         steps{
          script {
-             sh '''
-             sudo docker build -t webimage:$BUILD_NUMBER .
-             sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8888 webimage:$BUILD_NUMBER
-             sudo docker ps '''
+             sh label: '', script: '''rm -rf dockerimg
+mkdir dockerimg
+cd dockerimg
+touch dockerfile
+cat <<EOT>>dockerfile
+FROM tomcat
+MAINTAINER akshaysaini193@gmail.com
+RUN mkdir -p /home/akshay
+WORKDIR /home/akshay
+ADD target/spring-boot-hello-1.0.jar /usr/local/tomcat/webapps/
+ENTRYPOINT ["java", "-Dserver.port=8888","-jar","spring-boot-hello-1.0.jar"]
+EXPOSE 8888
+EOT
+sudo docker build -t webimage:$BUILD_NUMBER .
+sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8080 webimage:$BUILD_NUMBER'''
          }
       }
     }
