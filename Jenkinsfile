@@ -1,5 +1,8 @@
 pipeline{
   agent any
+  tools{
+    maven 'Maven_3_6_3'
+  }
   stages{
     stage('Check Maven version'){
       steps{
